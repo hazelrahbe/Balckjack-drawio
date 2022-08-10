@@ -1,8 +1,8 @@
-let suits = ['Diamonds', 'Hearts', 'Clubs', 'Spades'];
+let suits = ['diamonds', 'hearts', 'clubs', 'spades'];
 let points = ['K', 'Q', 'J', 'A', 2, 3, 4, 5, 6, 7, 8, 9, 10];
 let playerHand = []
 let dealerHand = []
-let value = 0;
+
 let deck = new Array();
 function deckTable() {
      for (let i = 0; i < suits.length; i++) {
@@ -18,6 +18,9 @@ console.log(deckTable())
 let newGame = document.querySelector('.newGame')
 let hitBtn = document.querySelector('.hitBtn')
 let stayBtn = document.querySelector('.stayBtn')
+let playerCard = document.querySelector('.player')
+let dealerCard = document.querySelector('.dealer')
+
 
 function startGame() {
     playerHand = []
@@ -25,18 +28,20 @@ function startGame() {
     let playerCard2 = deck.pop()
     playerHand.push(playerCard1)
     playerHand.push(playerCard2)
-    playerHand.value = playerCard1 + playerCard2;
-    console.log(playerHand)
-    console.log(playerHand.value + ' Points')
+    document.querySelector('.playerText').innerHTML = (playerHand)
+    document.querySelector('.playerText').innerHTML = (calculateTotal(playerHand))
+    appendCard(playerHand[0], playerCard)
+    appendCard(playerHand[1], playerCard)
 
     dealerHand = []
     let dealerCard1 = deck.pop()
     let dealerCard2 = deck.pop()
     dealerHand.push(dealerCard1)
     dealerHand.push(dealerCard2)
-    dealerHand.value = dealerCard1 + dealerCard2;
-    console.log(dealerHand)
-    console.log(dealerHand.value + " Points")
+    document.querySelector('.dealerText').innerHTML = (dealerHand)
+    document.querySelector('.dealerText').innerHTML = (calculateTotal(dealerHand))
+    appendCard(dealerHand[0], dealerCard)
+    appendCard(dealerHand[1], dealerCard)  
 }
  
 newGame.addEventListener('click', startGame)
@@ -54,11 +59,11 @@ function calculateTotal(hand) {
 function hitMe() {
     playerHand.push(deck[0])
     deck.splice(0, 1)
-    if (calculateTotal(playerHand) > 21) {
-    console.log(playerHand)
-    console.log(calculateTotal(playerHand))
-    console.log("You lose")
+    if (calculateTotal(playerHand) >= 21) {
+        document.querySelector('.playerText').innerHTML = (playerHand)
+    alert("You lose")
     }
+    document.querySelector('.playerText').innerHTML = (calculateTotal(playerHand))
     // if (dealerHand < 17) {
     // dealerHand.push(deck[0])
     // deck.splice(0, 1)
@@ -75,7 +80,9 @@ function skipMe() {
     if (dealerHand.value < 17) {
     dealerHand.push(deck[0])
         deck.splice(0, 1)
-console.log(playerHand, dealerHand)
+        document.querySelector('.playerText').innerHTML = (playerHand)
+        document.querySelector('.playerText').innerHTML = (dealerHand)
+        // (playerHand, dealerHand)
     skipMe();
     }
     else if (calculateTotal(dealerHand)) {
@@ -96,6 +103,15 @@ function checkPoints() {
     }
     else {
         alert("You Win! Dealer Lose!");
-        console.log(`Player hand: ${playerHand}, dealer hand: ${dealerHand}`)
+        dc(`Player hand: ${playerHand}, dealer hand: ${dealerHand}`)
     }
+}
+
+function appendCard(card, turn) {
+    console.log(card)
+    let img = document.createElement('img')
+    img.src = `./PNG-cards-1.3/${card.points}_of_${card.suite}.png`
+    turn.appendChild(img)
+    img.style.width = '80px'
+    img.style.height = '120px'
 }
