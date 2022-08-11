@@ -37,14 +37,22 @@ body {
 
 .container {
    width: 500px;
-   padding: 5%;
+   padding: 1% 5%;
    border: 10px solid salmon;
    position: relative;
-   display: flex;
-   flex-direction: row;
+   /* display: flex; */
+   /* flex-direction: row; */
+   display: grid;
+   grid-template-columns: 2fr 2fr 1fr;
    gap: 5px;
    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
    font-size: 25px;
+   min-height: 40vh;
+   background-color: rgba(171, 43, 29, 0.483);
+}
+
+.container >div {
+    color: white;
 }
 
 .btn {
@@ -53,6 +61,8 @@ body {
     gap: 5px;
     margin-top: 50px;
     margin-bottom: auto;
+    height: 40px;
+    width: 60px;
 }
 
 img {
@@ -60,11 +70,7 @@ img {
     height: 120px;
 }
 
-.playerText {
-    margin-right: 150px;
-
-}
-
-.dealerText {
-    margin-right: 20px;
+.container >div:last-of-type {
+    display: flex;
+    align-items: center;
 }
